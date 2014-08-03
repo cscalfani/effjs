@@ -94,14 +94,14 @@ utils.extend(curriedList, {
 	foldl: curriedList.reduce,
 	foldr: curriedList.reduceRight,
 	// add inverses
-	reject: args.applyToArg(bool.not, 0, curriedList.filter),
+	reject: args.applyToArg(bool.not, 1, curriedList.filter),
 	// add min & max
 	min: curriedList.reduce(arity.binary(Math.min), Infinity),
 	max: curriedList.reduce(arity.binary(Math.max), -Infinity)
 });
 
 utils.extend(curriedList, {
-	findLast: args.applyToArg(compose.compose(_a.reverse, curriedList.cloneList), 1, curriedList.find)
+	findLast: args.applyToArg(compose.compose(_a.reverse, curriedList.cloneList), 2, curriedList.find)
 });
 
 utils.extend(curriedList, curry.curryObject({

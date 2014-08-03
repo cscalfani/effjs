@@ -9,8 +9,8 @@ var private = {
 			var argApplies = getArgApplies(args);
 			for (var i = 0; i < args.length; ++i)
 			{
-				if (argApplies[i])
-					args[i] = argApplies[i](args[i]);
+				if (argApplies[i + 1])
+					args[i] = argApplies[i + 1](args[i]);
 			}
 			return fn.apply(null, args);
 		}, curry.getArity(fn));
@@ -32,7 +32,7 @@ var args = {
 	applyToArgsFrom: function(apply, argIndex, fn) {
 		return private.applyTo(function(args) {
 			var generator = require('./generator');
-			return private.argIndexesToArgApplies(generator.range(argIndex, args.length - 1), apply);
+			return private.argIndexesToArgApplies(generator.range(argIndex, args.length), apply);
 		}, fn);
 	},
 	applyToArgs: function(argApplies, fn) {
@@ -46,7 +46,7 @@ var curriedArgs = curry.curryObject(args);
 
 utils.extend(curriedArgs, {
 	// add specialized functions
-	applyToAllArgs: reorder.flip(curriedArgs.applyToArgsFrom)(0)
+	applyToAllArgs: reorder.flip(curriedArgs.applyToArgsFrom)(1)
 });
 
 module.exports = curriedArgs;

@@ -23,6 +23,9 @@ var reorder = {
 			return fn.apply(null, reorderedArgs);
 		});
 	},
+	nextArg: function(argIndex, fn) {
+		var defaultOrder = private.createDefaultOrder(fn);
+	},
 	flipAll: function(fn) {
 		var defaultOrder = private.createDefaultOrder(fn);
 		return reorder.reorder(fn, defaultOrder.reverse());

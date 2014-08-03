@@ -83,7 +83,7 @@ var curriedObj = curry.curryObject(obj);
 
 utils.extend(curriedObj, {
 	// add inverses
-	rejectObj: args.applyToArg(bool.not, 0, curriedObj.filterObj)
+	rejectObj: args.applyToArg(bool.not, 1, curriedObj.filterObj)
 });
 
 module.exports = curriedObj;
