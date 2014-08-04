@@ -167,7 +167,7 @@ if(F.max(nnList) != -1)
 //////////////////////////////////////////////////////
 // concat test
 var concatF = F.concat([10, 11, 12]);
-if (!utils.arraysEqual(concatF([8, 9]), [8, 9, 10, 11, 12]))
+if (!utils.arraysEqual(concatF([13, 14]), [10, 11, 12, 13, 14]))
 	console.log('concat error');
 //////////////////////////////////////////////////////
 // uniq test

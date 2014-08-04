@@ -5,6 +5,8 @@ var compose = require('./compose');
 var utils = require('./utils');
 var arity = require('./arity');
 var bool = require('./bool');
+var id = require('./id');
+var reorder = require('./reorder');
 
 var private = {
 	iterate: function(list, fn, defaultValue) {
@@ -82,11 +84,12 @@ var curriedList = curry.curryObject(listModule);
 
 // add a selection of curried native Array functions
 var _a = curry.curryClassMethods(Array);
-utils.extend(curriedList, ['map', 'filter', 'every', 'some', 'indexOf','lastIndexOf', 'sort', 'concat'].map(function(funcName) {
+utils.extend(curriedList, ['map', 'filter', 'every', 'some', 'indexOf','lastIndexOf', 'sort'].map(function(funcName) {
 	curriedList[funcName] = _a[funcName];
 }));
 
 utils.extend(curriedList, {
+	concat: reorder.flip(_a.concat),
 	cloneList: curry.curryOOMethod(Array.prototype.slice, 0),
 	// add minor variations on natives
 	contains: compose.compose(math.neq(-1), curriedList.indexOf),
@@ -101,6 +104,7 @@ utils.extend(curriedList, {
 });
 
 utils.extend(curriedList, {
+	reverse: compose.compose(_a.reverse, curriedList.cloneList),
 	findLast: args.applyToArg(compose.compose(_a.reverse, curriedList.cloneList), 2, curriedList.find)
 });
 
