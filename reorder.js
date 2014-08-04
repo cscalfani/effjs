@@ -25,6 +25,11 @@ var reorder = {
 	},
 	nextArg: function(argIndex, fn) {
 		var defaultOrder = private.createDefaultOrder(fn);
+		var index = defaultOrder.indexOf(argIndex);
+		if (index != -1)
+			return reorder.reorder(fn, [argIndex].concat(defaultOrder.slice(0, argIndex - 1).concat(defaultOrder.slice(argIndex))));
+		else
+			return fn;
 	},
 	flipAll: function(fn) {
 		var defaultOrder = private.createDefaultOrder(fn);
